@@ -1,0 +1,21 @@
+{
+    "name": "threejs-cannon-game",
+    "version": "1.0.0",
+    "description": "Un jeu inspiré de Fruit Ninja utilisant Three.js et Cannon-es",
+    "main": "index.js",
+    "scripts": {
+        "start": "vite",
+        "build": "vite build",
+        "dev": "vite"
+    },
+    "dependencies": {
+        "cannon-es": "^0.20.0",
+        "three": "^0.173.0",
+        "three-bvh-csg": "^0.0.16",
+        "three-csg": "^1.0.0"
+    },
+    "devDependencies": {
+        "vite": "^5.0.0"
+    },
+    "type": "module"
+}
