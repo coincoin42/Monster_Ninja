@@ -44,3 +44,6 @@ Prêt à découper des formes et exploser le score ? Amusez-vous bien ! ✨
 
 *La Skybox a été faite grâce à la vidéo de RedStapler : https://www.youtube.com/watch?v=cp-H_6VODko*
 
+## Démo du jeu
+
+[![Demo du jeu](https://img.youtube.com/vi/XEWyZpTfbvs/maxresdefault.jpg)](https://youtube.com/shorts/XEWyZpTfbvs)
