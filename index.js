@@ -1,6 +1,11 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
+
+
+import { ARButton } from 'three/examples/jsm/webxr/ARButton.js';
+
+
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 
 
@@ -10,8 +15,8 @@ hitSound.volume = 0.3;
 musiqueDeFond.volume = 0.3; 
 
 let gameStarted = false;
-let minutes_restant = 10;
-let secondes_restantes = "00";
+let minutes_restant = 0;
+let secondes_restantes = "30";
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -22,10 +27,18 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
+const controller = renderer.xr.getController(0);
+scene.add(controller);
+
+renderer.xr.enabled = true;
+document.body.appendChild(ARButton.createButton(renderer));
 const controls = new OrbitControls(camera, renderer.domElement);
 
+console.log('WebXR support:', navigator.xr);
 
-//Skybox
+
+
+/*Skybox
 
 let materialArray = [];
 const loader = new THREE.TextureLoader();
@@ -51,7 +64,7 @@ materialArray.forEach(material => {
 let skyboxGeo = new THREE.BoxGeometry(500,500,500);
 let skybox = new THREE.Mesh(skyboxGeo, materialArray);
 scene.add(skybox);
-
+*/
 // Lights
 const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(5, 5, 5);
@@ -120,7 +133,8 @@ function createFruit() {
 
         const material = new THREE.MeshStandardMaterial({ color: Math.random() * 0xffffff });
         const fruit = new THREE.Mesh(geometry, material);
-        fruit.position.set((Math.random() - 0.5) * 4, 2, (Math.random() - 0.5) * 4);
+        fruit.position.set(Math.random() * 2 - 1, Math.random() * 2, -2);
+
         scene.add(fruit);
         fruits.push(fruit);
     }
@@ -384,14 +398,14 @@ async function checkCollisions() {
 
 const floorGeometry = new THREE.PlaneGeometry(100, 100);
 
-const floor = new THREE.Mesh(floorGeometry, textureup);
+const floor = new THREE.Mesh(floorGeometry);
 floor.rotation.x = - Math.PI / 2;  
 floor.position.y = -3;  
 scene.add(floor);
 
 // Animation loop
 function animate() {
-    requestAnimationFrame(animate);
+    renderer.setAnimationLoop(() => {
 
 
 
@@ -408,6 +422,7 @@ function animate() {
 
     controls.update();
     renderer.render(scene, camera);
+});
 }
 
 
