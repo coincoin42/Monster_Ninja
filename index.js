@@ -1,13 +1,13 @@
-import * as THREE from './node_modules/three';
-import { OrbitControls } from './node_modules/three/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from './node_modules/three/examples/jsm/loaders/GLTFLoader'; 
+//import * as THREE from './node_modules/three';
+//import { OrbitControls } from './node_modules/three/examples/jsm/controls/OrbitControls.js';
+//import { GLTFLoader } from './node_modules/three/examples/jsm/loaders/GLTFLoader'; 
 
 
 
-import { ARButton } from './node_modules/three/examples/jsm/webxr/ARButton.js';
+//import { ARButton } from './node_modules/three/examples/jsm/webxr/ARButton.js';
 
 
-import { FontLoader } from './node_modules/three/examples/jsm/loaders/FontLoader.js';
+//import { FontLoader } from './node_modules/three/examples/jsm/loaders/FontLoader.js';
 
 
 const loader = new GLTFLoader();
