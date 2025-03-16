@@ -18,8 +18,8 @@ hitSound.volume = 0.3;
 musiqueDeFond.volume = 0.3; 
 
 let gameStarted = false;
-let minutes_restant = 0;
-let secondes_restantes = "30";
+let minutes_restant = 10;
+let secondes_restantes = "00";
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -132,7 +132,7 @@ function createFruit() {
                 monstres.push(monstre);
                 fruits.push(fruit);
                 directions.push(randomDirectionGLTF);
-                console.log(fruits);
+                
             });
             return;
             case 1: 
@@ -151,7 +151,7 @@ function createFruit() {
                 monstres.push(monstre);
                 fruits.push(fruit);
                 directions.push(randomDirectionGLTF);
-                console.log(fruits);
+                
             });
             return;
             case 2: 
@@ -170,7 +170,7 @@ function createFruit() {
                 monstres.push(monstre);
                 fruits.push(fruit);
                 directions.push(randomDirectionGLTF);
-                console.log(fruits);
+                
             });
             return;
             case 3: 
@@ -189,7 +189,7 @@ function createFruit() {
                 monstres.push(monstre);
                 fruits.push(fruit);
                 directions.push(randomDirectionGLTF);
-                console.log(fruits);
+                
             });
             return;
     
@@ -273,7 +273,7 @@ function applyDirection() {
        
 
         
-        if (fruits.length > 2) { 
+        if (fruits.length > 10) { 
             scene.remove(fruit);
             scene.remove(monstres[index]);
             fruits.splice(index, 1);
@@ -432,11 +432,11 @@ async function checkCollisions() {
             scene.remove(target);
             fruits = fruits.filter(fruit => fruit !== target);
             
-            console.log("Fruit touché, index:", targetIndex);
+           
             
             scene.remove(monstres[targetIndex]);
             monstres = monstres.filter(monstre => monstre !== monstres[targetIndex]);
-            console.log(monstres);
+            
 
             scene.remove(projectile);
             projectiles.splice(index, 1);
