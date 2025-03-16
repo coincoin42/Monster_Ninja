@@ -39,7 +39,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 
 
-//Skybox
+/*Skybox
 
 let materialArray = [];
 const loadertexture = new THREE.TextureLoader();
@@ -65,7 +65,7 @@ materialArray.forEach(material => {
 let skyboxGeo = new THREE.BoxGeometry(500,500,500);
 let skybox = new THREE.Mesh(skyboxGeo, materialArray);
 scene.add(skybox);
-
+*/
 // Lights
 const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(5, 5, 5);
@@ -116,7 +116,7 @@ function createFruit() {
         const material = new THREE.MeshStandardMaterial({ color: Math.random() * 0xffffff });
 
         switch (shapeType) {
-            case 0: // Cube
+            case 0: 
             loader.load('foodpack/ultimate/glb/monster.glb', (gltf) => {
                 const fruit = new THREE.Mesh(geometry, material); 
                 const monstre = gltf.scene;
@@ -127,7 +127,7 @@ function createFruit() {
                 scene.add(monstre);
                 scene.add(fruit);
                 
-                // Assign random movement direction
+                
                 const randomDirectionGLTF = new THREE.Vector3(0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5));
                 monstres.push(monstre);
                 fruits.push(fruit);
@@ -135,7 +135,7 @@ function createFruit() {
                 console.log(fruits);
             });
             return;
-            case 1: // Rectangle
+            case 1: 
             loader.load('foodpack/ultimate/glb/bread_monster_model.glb', (gltf) => {
                 const fruit = new THREE.Mesh(geometry, material); 
                 const monstre = gltf.scene;
@@ -146,7 +146,7 @@ function createFruit() {
                 scene.add(monstre);
                 scene.add(fruit);
                 
-                // Assign random movement direction
+                
                 const randomDirectionGLTF = new THREE.Vector3(0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5));
                 monstres.push(monstre);
                 fruits.push(fruit);
@@ -154,7 +154,7 @@ function createFruit() {
                 console.log(fruits);
             });
             return;
-            case 2: // Sphère
+            case 2: 
             loader.load('foodpack/ultimate/glb/lowpoly_monster_fox_boss.glb', (gltf) => {
                 const fruit = new THREE.Mesh(geometry, material); 
                 const monstre = gltf.scene;
@@ -165,7 +165,7 @@ function createFruit() {
                 scene.add(monstre);
                 scene.add(fruit);
                 
-                // Assign random movement direction
+                
                 const randomDirectionGLTF = new THREE.Vector3(0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5));
                 monstres.push(monstre);
                 fruits.push(fruit);
@@ -173,7 +173,7 @@ function createFruit() {
                 console.log(fruits);
             });
             return;
-            case 3: // Triangle
+            case 3: 
             loader.load('foodpack/ultimate/glb/om_nom.glb', (gltf) => {
                 const fruit = new THREE.Mesh(geometry, material); 
                 const monstre = gltf.scene;
@@ -184,7 +184,7 @@ function createFruit() {
                 scene.add(monstre);
                 scene.add(fruit);
                 
-                // Assign random movement direction
+                
                 const randomDirectionGLTF = new THREE.Vector3(0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5));
                 monstres.push(monstre);
                 fruits.push(fruit);
@@ -453,7 +453,7 @@ async function checkCollisions() {
             scene.remove(greenCube);
             scene.add(redCube);
             musiqueDeFond.play();
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, 3000));
             return;
         }
         if (gameStarted && raycaster.intersectObject(redCube).length > 0) {
