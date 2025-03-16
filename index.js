@@ -453,7 +453,7 @@ async function checkCollisions() {
             scene.remove(greenCube);
             scene.add(redCube);
             musiqueDeFond.play();
-            await new Promise(resolve => setTimeout(resolve, 3000));
+            await new Promise(resolve => setTimeout(resolve, 10000));
             return;
         }
         if (gameStarted && raycaster.intersectObject(redCube).length > 0) {
@@ -461,7 +461,7 @@ async function checkCollisions() {
             scene.remove(redCube);
             scene.add(greenCube);
             musiqueDeFond.pause();
-            await new Promise(resolve => setTimeout(resolve, 1000)); 
+            await new Promise(resolve => setTimeout(resolve, 10000)); 
             return;
         }
     }
