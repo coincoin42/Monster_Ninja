@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'; 
 
 
 
@@ -8,6 +9,8 @@ import { ARButton } from 'three/examples/jsm/webxr/ARButton.js';
 
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 
+
+const loader = new GLTFLoader();
 
 const hitSound = new Audio('sound/heartsteel_proc_sound.mp3');
 const musiqueDeFond = new Audio('sound/monster_hunter_music.mp3');
@@ -34,20 +37,18 @@ renderer.xr.enabled = true;
 document.body.appendChild(ARButton.createButton(renderer));
 const controls = new OrbitControls(camera, renderer.domElement);
 
-console.log('WebXR support:', navigator.xr);
 
 
-
-/*Skybox
+//Skybox
 
 let materialArray = [];
-const loader = new THREE.TextureLoader();
-let textureft = loader.load('texture/barren_ft.jpg');
-let texturebk = loader.load('texture/barren_bk.jpg');
-let texturelf = loader.load('texture/barren_dn.jpg');
-let texturert = loader.load('texture/barren_lf.jpg');
-let textureup = loader.load('texture/barren_rt.jpg');
-let texturedn = loader.load('texture/barren_up.jpg');
+const loadertexture = new THREE.TextureLoader();
+let textureft = loadertexture.load('texture/barren_ft.jpg');
+let texturebk = loadertexture.load('texture/barren_bk.jpg');
+let texturelf = loadertexture.load('texture/barren_dn.jpg');
+let texturert = loadertexture.load('texture/barren_lf.jpg');
+let textureup = loadertexture.load('texture/barren_rt.jpg');
+let texturedn = loadertexture.load('texture/barren_up.jpg');
 
 
 materialArray.push(new THREE.MeshBasicMaterial({map : texturebk}));
@@ -64,7 +65,7 @@ materialArray.forEach(material => {
 let skyboxGeo = new THREE.BoxGeometry(500,500,500);
 let skybox = new THREE.Mesh(skyboxGeo, materialArray);
 scene.add(skybox);
-*/
+
 // Lights
 const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(5, 5, 5);
@@ -78,8 +79,10 @@ scene.add(ambientLight);
 
 // "Fruit" array
 let fruits = [];
+let monstres = [];
 let projectiles = [];
 let particles = [];
+let directions = [];
 
 
 //Score
@@ -107,36 +110,90 @@ redCube.position.set(8, 3, -8);
 // Create cubes (fruits)
 function createFruit() {
     if (gameStarted){
-        let geometry;
+        
         const shapeType = Math.floor(Math.random() * 4); // 0 = cube, 1 = rectangle, 2 = sphere, 3 = triangle
+        const geometry = new THREE.BoxGeometry(0.4, 0.4, 0.4);
+        const material = new THREE.MeshStandardMaterial({ color: Math.random() * 0xffffff });
 
         switch (shapeType) {
             case 0: // Cube
-                geometry = new THREE.BoxGeometry(0.4, 0.4, 0.4);
-                break;
+            loader.load('foodpack/ultimate/glb/monster.glb', (gltf) => {
+                const fruit = new THREE.Mesh(geometry, material); 
+                const monstre = gltf.scene;
+                monstre.scale.set(0.02, 0.02, 0.02); 
+                fruit.position.set(Math.random() * 2 - 1, Math.random() * 2, Math.random() * 2);
+                monstre.position.set(fruit.position.x,fruit.position.y,fruit.position.z);
+                fruit.visible = false;
+                scene.add(monstre);
+                scene.add(fruit);
+                
+                // Assign random movement direction
+                const randomDirectionGLTF = new THREE.Vector3(0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5));
+                monstres.push(monstre);
+                fruits.push(fruit);
+                directions.push(randomDirectionGLTF);
+                console.log(fruits);
+            });
+            return;
             case 1: // Rectangle
-                geometry = new THREE.BoxGeometry(0.6, 0.3, 0.2);
-                break;
+            loader.load('foodpack/ultimate/glb/bread_monster_model.glb', (gltf) => {
+                const fruit = new THREE.Mesh(geometry, material); 
+                const monstre = gltf.scene;
+                monstre.scale.set(0.1, 0.1, 0.1); 
+                fruit.position.set(Math.random() * 2 - 1, Math.random() * 2, Math.random() * 2);
+                monstre.position.set(fruit.position.x,fruit.position.y,fruit.position.z);
+                fruit.visible = false;
+                scene.add(monstre);
+                scene.add(fruit);
+                
+                // Assign random movement direction
+                const randomDirectionGLTF = new THREE.Vector3(0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5));
+                monstres.push(monstre);
+                fruits.push(fruit);
+                directions.push(randomDirectionGLTF);
+                console.log(fruits);
+            });
+            return;
             case 2: // Sphère
-                geometry = new THREE.SphereGeometry(0.3, 16, 16);
-                break;
+            loader.load('foodpack/ultimate/glb/lowpoly_monster_fox_boss.glb', (gltf) => {
+                const fruit = new THREE.Mesh(geometry, material); 
+                const monstre = gltf.scene;
+                monstre.scale.set(15, 15, 15); 
+                fruit.position.set(Math.random() * 2 - 1, Math.random() * 2, Math.random() * 2);
+                monstre.position.set(fruit.position.x,fruit.position.y,fruit.position.z);
+                fruit.visible = false;
+                scene.add(monstre);
+                scene.add(fruit);
+                
+                // Assign random movement direction
+                const randomDirectionGLTF = new THREE.Vector3(0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5));
+                monstres.push(monstre);
+                fruits.push(fruit);
+                directions.push(randomDirectionGLTF);
+                console.log(fruits);
+            });
+            return;
             case 3: // Triangle
-                geometry = new THREE.BufferGeometry();
-                const vertices = new Float32Array([
-                    0, 0.4, 0, 
-                    -0.3, -0.2, 0, 
-                    0.3, -0.2, 0  
-                ]);
-                geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
-                break;
+            loader.load('foodpack/ultimate/glb/om_nom.glb', (gltf) => {
+                const fruit = new THREE.Mesh(geometry, material); 
+                const monstre = gltf.scene;
+                monstre.scale.set(0.01, 0.01, 0.01); 
+                fruit.position.set(Math.random() * 2 - 1, Math.random() * 2, Math.random() * 2);
+                monstre.position.set(fruit.position.x,fruit.position.y,fruit.position.z);
+                fruit.visible = false;
+                scene.add(monstre);
+                scene.add(fruit);
+                
+                // Assign random movement direction
+                const randomDirectionGLTF = new THREE.Vector3(0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5), 0.05 * (Math.random() - 0.5));
+                monstres.push(monstre);
+                fruits.push(fruit);
+                directions.push(randomDirectionGLTF);
+                console.log(fruits);
+            });
+            return;
+    
         }
-
-        const material = new THREE.MeshStandardMaterial({ color: Math.random() * 0xffffff });
-        const fruit = new THREE.Mesh(geometry, material);
-        fruit.position.set(Math.random() * 2 - 1, Math.random() * 2, -2);
-
-        scene.add(fruit);
-        fruits.push(fruit);
     }
 }
 
@@ -208,15 +265,20 @@ function createExplosionEffect(position) {
 
 
 
-function applyGravity() {
+function applyDirection() {
     if (gameStarted){
     fruits.forEach((fruit, index) => {
-        fruit.position.y -= 0.02;  // "gravity"
+        fruit.position.add(directions[index]); 
+        monstres[index].position.add(directions[index]);
+       
 
         
-        if (fruit.position.y <= floor.position.y + 0.2) { 
+        if (fruits.length > 2) { 
             scene.remove(fruit);
+            scene.remove(monstres[index]);
             fruits.splice(index, 1);
+            directions.splice(index,1);
+            monstres.splice(index,1);
         }
     });}
 }
@@ -224,10 +286,10 @@ function applyGravity() {
 let textMesh = null;
 function setScore() {
 
-    const loader = new FontLoader();
+    const loaderscore = new FontLoader();
     const fontPath = 'helvetiker_regular.typeface.json'; 
 
-    loader.load(fontPath, function (font) {
+    loaderscore.load(fontPath, function (font) {
 
 
         const color = new THREE.Color(0x006699);
@@ -273,9 +335,9 @@ function setChrono() {
         scene.remove(chronoMesh);
     }
 
-    const loader = new FontLoader();
+    const loaderfont = new FontLoader();
     const fontPath = 'helvetiker_regular.typeface.json'; 
-    loader.load(fontPath, function (font) {
+    loaderfont.load(fontPath, function (font) {
         const color = new THREE.Color(0x006699);
         const matLite = new THREE.MeshBasicMaterial({
             color: color,
@@ -298,6 +360,11 @@ function setChrono() {
                 scene.remove(fruit);
             });
             fruits = [];
+            monstres.forEach(monster => {
+                scene.remove(monster);
+            });
+            monstres = [];
+            directions = [];
         }
 
         const shapes = font.generateShapes(message, 10);
@@ -356,14 +423,20 @@ async function checkCollisions() {
 
         if (intersects.length > 0 && gameStarted) {
             const target = intersects[0].object;
-            const position = target.position.clone();  // Get the position of the fruit
-
+            const position = target.position.clone(); 
+            const targetIndex = fruits.indexOf(target);
             hitSound.currentTime = 0;
             hitSound.play();
             createExplosionEffect(position);
 
             scene.remove(target);
             fruits = fruits.filter(fruit => fruit !== target);
+            
+            console.log("Fruit touché, index:", targetIndex);
+            
+            scene.remove(monstres[targetIndex]);
+            monstres = monstres.filter(monstre => monstre !== monstres[targetIndex]);
+            console.log(monstres);
 
             scene.remove(projectile);
             projectiles.splice(index, 1);
@@ -396,12 +469,7 @@ async function checkCollisions() {
 
 
 
-const floorGeometry = new THREE.PlaneGeometry(100, 100);
 
-const floor = new THREE.Mesh(floorGeometry);
-floor.rotation.x = - Math.PI / 2;  
-floor.position.y = -3;  
-scene.add(floor);
 
 // Animation loop
 function animate() {
@@ -409,7 +477,7 @@ function animate() {
 
 
 
-    applyGravity();
+    applyDirection();
     checkCollisions();
 
    
