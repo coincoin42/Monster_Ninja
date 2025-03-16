@@ -10,7 +10,7 @@
 //import { FontLoader } from './node_modules/three/examples/jsm/loaders/FontLoader.js';
 
 
-const loader = new THREE.GLTFLoader();
+const loader = new GLTFLoader();
 
 const hitSound = new Audio('sound/heartsteel_proc_sound.mp3');
 const musiqueDeFond = new Audio('sound/monster_hunter_music.mp3');
@@ -35,7 +35,7 @@ scene.add(controller);
 
 renderer.xr.enabled = true;
 document.body.appendChild(ARButton.createButton(renderer));
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
+const controls = new OrbitControls(camera, renderer.domElement);
 
 
 
@@ -286,7 +286,7 @@ function applyDirection() {
 let textMesh = null;
 function setScore() {
 
-    const loaderscore = new THREE.FontLoader();
+    const loaderscore = new FontLoader();
     const fontPath = 'helvetiker_regular.typeface.json'; 
 
     loaderscore.load(fontPath, function (font) {
@@ -335,7 +335,7 @@ function setChrono() {
         scene.remove(chronoMesh);
     }
 
-    const loaderfont = new THREE.FontLoader();
+    const loaderfont = new FontLoader();
     const fontPath = 'helvetiker_regular.typeface.json'; 
     loaderfont.load(fontPath, function (font) {
         const color = new THREE.Color(0x006699);
